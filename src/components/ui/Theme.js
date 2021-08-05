@@ -39,6 +39,14 @@ export default createTheme({
     h4: {
       fontWeight: 500,
       fontSize: 18,
+    },
+    body1: {
+      fontSize: 14,
+      lineHeight: '16px',
+    },
+    caption: {
+      fontSize: 10,
+      lineHeight: '12px',
     }
   },
 });

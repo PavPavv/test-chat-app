@@ -1,9 +1,11 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core'; 
+import { makeStyles, Icon } from '@material-ui/core';
+import SendRounded from '@material-ui/icons/SendRounded';
 
 const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex',
+    alignItems: 'center',
     width: '100%',
     height: '44px',
     borderTop: `1px solid ${theme.palette.common.gray}`,
@@ -13,6 +15,10 @@ const useStyles = makeStyles(theme => ({
     padding: '0 14px',
     border: 0,
     outline: 'none',
+  },
+  sendBtn: {
+    margin: '0 14px',
+    cursor: 'pointer',
   },
 }));
 
@@ -26,7 +32,7 @@ const SendPanel = () => {
         placeholder="Введите текст"
         className={classes.input}
       />
-      <button>test</button>
+      <SendRounded color="primary" fontSize="medium" className={classes.sendBtn} />
     </div>
   )
 }

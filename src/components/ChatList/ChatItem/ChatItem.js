@@ -13,6 +13,7 @@ const useStyles = makeStyles(theme => ({
     padding: '8px 12px 14px 12px',
     borderRadius: '4px',
     background: theme.palette.common.lightBlue,
+    cursor: 'pointer',
   },
   img: {
     marginRight: '11px',
