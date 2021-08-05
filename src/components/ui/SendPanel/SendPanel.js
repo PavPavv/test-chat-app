@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles, Icon } from '@material-ui/core';
 import SendRounded from '@material-ui/icons/SendRounded';
+
+import { messages } from '../../../shared/testData';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -22,8 +24,28 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const SendPanel = () => {
+const SendPanel = ({ channelId }) => {
   const classes = useStyles();
+  const [value, setValue] = useState('');
+  
+  const handleChange = e => {
+    const { value } = e.target;
+    setValue(value);
+  };
+
+  const handleClick = () => {
+    messages.push({
+      id: Date.now(),
+      roomId: 'you',
+      channelId,
+      body: value,
+      isOutgoing: true,
+      ts: new Date,
+    });
+    console.log('messages', messages);
+  }
+
+
 
   return (
     <div className={classes.root}>
@@ -31,8 +53,10 @@ const SendPanel = () => {
         type="text"
         placeholder="Введите текст"
         className={classes.input}
+        value={value}
+        onChange={handleChange}
       />
-      <SendRounded color="primary" fontSize="medium" className={classes.sendBtn} />
+      <SendRounded color="primary" fontSize="medium" className={classes.sendBtn} onClick={handleClick} />
     </div>
   )
 }

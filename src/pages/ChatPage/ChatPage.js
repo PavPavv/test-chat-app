@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid } from '@material-ui/core';
 
@@ -13,6 +13,11 @@ const useStyles = makeStyles({
 
 const ChatPage = () => {
   const classes = useStyles();
+  const pickedChannel = localStorage.getItem('channelId');
+
+  useEffect(() => {
+    console.log('pickedChannel',pickedChannel)
+  }, [pickedChannel]);
 
   return (
     <div className={classes.root}>
@@ -21,7 +26,7 @@ const ChatPage = () => {
           <ChatList />
         </Grid>
         <Grid item xs={9}>
-          <ChatRoom />
+          {pickedChannel ? <ChatRoom /> : <div>Select a chat to start messaging</div>}
         </Grid>
       </Grid>
     </div>

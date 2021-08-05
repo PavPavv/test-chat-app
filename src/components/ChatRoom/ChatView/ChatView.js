@@ -20,12 +20,13 @@ const useStyles = makeStyles(theme => ({
 
 const ChatView = () => {
   const classes = useStyles();
+  const channelId = localStorage.getItem('channelId');
   
   return (
     <main className={classes.root}>
-      <ChatViewName name="Serdar Azmun" />
-      <ChatBody />
-      <SendPanel />
+      <ChatViewName channelId={channelId} />
+      <ChatBody channelId={channelId} />
+      <SendPanel channelId={channelId} />
     </main>
   )
 }
