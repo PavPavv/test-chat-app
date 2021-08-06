@@ -1,18 +1,11 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import { observer } from 'mobx-react-lite';
+import { values } from 'mobx';
 
 import ChatName from './ChatName/ChatName';
 import ChatItem from './ChatItem/ChatItem';
-import { messages } from '../../shared/testData';
-
-const rooms = Array.from(new Set(messages.map(message => message.channelId)));
-
-const latestRoomSpeaker = channelName => {
-  return messages.filter(message => message.channelId === channelName).sort((a, b) => b.ts - a.ts)[0].roomId;
-};
-const latestMessageFromChannel = channelName => {
-  return messages.filter(message => message.channelId === channelName).sort((a, b) => b.ts - a.ts)[0].body;
-};
+import { getClockTime } from '../../shared/utils';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -28,19 +21,31 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-const ChatList = () => {
+const ChatList = ({ store }) => {
   const classes = useStyles();
-  const [channelName, setChannelName] = useState('');
+  const channelId = store.picked.channelId;
+  const messages = values(store.messages);
+  const rooms = Array.from(new Set(messages.map(message => message.channelId)));
+
+  const latestRoomSpeaker = channelName => {
+    return messages.filter(message => message.channelId === channelName).sort((a, b) => b.ts - a.ts)[0].roomId;
+  };
+
+  const latestMessageFromChannel = channelName => {
+    return messages.filter(message => message.channelId === channelName).sort((a, b) => b.ts - a.ts)[0].body;
+  };
+
+  const latestMsgTime = channelName => {
+    return messages.filter(message => message.channelId === channelName).sort((a, b) => b.ts - a.ts)[0].ts;
+  };
 
   return (
     <aside className={classes.root}>
-      <ChatName 
-        name={channelName} 
-      />
+      <ChatName name={channelId} />
       
       <div className={classes.listWrap}>
         {rooms.map((room, index) => {
-          const active = channelName === room;
+          const active = channelId === room;
 
           return (
             <ChatItem
@@ -48,10 +53,10 @@ const ChatList = () => {
               chatName={room}
               roomName={latestRoomSpeaker(room)}
               msgs="1" 
-              time="11:30" 
+              time={getClockTime(latestMsgTime(room))} 
               message={latestMessageFromChannel(room)}
-              setChannelName={setChannelName}
               isActiveChannel={active}
+              store={store}
             />
           );
         })};
@@ -60,4 +65,4 @@ const ChatList = () => {
   )
 }
 
-export default ChatList;
+export default observer(ChatList);

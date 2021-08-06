@@ -1,5 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import { observer } from 'mobx-react-lite';
 
 import ChatView from './ChatView/ChatView';
 
@@ -14,14 +15,14 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
-const ChatRoom = () => {
+const ChatRoom = ({ store }) => {
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
-      <ChatView />
+      <ChatView store={store} />
     </div>
   )
 }
 
-export default ChatRoom;
+export default observer(ChatRoom);

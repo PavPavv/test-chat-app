@@ -1,8 +1,9 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core';
+import { observer } from 'mobx-react-lite';
+import { values } from "mobx";
 
 import Message from '../../../ui/Message/Message';
-import { messages } from '../../../../shared/testData';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -19,8 +20,10 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const ChatBody = ({ channelId }) => {
+const ChatBody = ({ store }) => {
   const classes = useStyles();
+  const messages = values(store.messages);
+  const channelId = store.picked.channelId;
   const roomMessages = messages.filter(message => message.channelId === channelId);
 
   return (
@@ -32,4 +35,4 @@ const ChatBody = ({ channelId }) => {
   )
 }
 
-export default ChatBody;
+export default observer(ChatBody);

@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import { makeStyles, Icon } from '@material-ui/core';
 import SendRounded from '@material-ui/icons/SendRounded';
 
-import { messages } from '../../../shared/testData';
-
 const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex',
@@ -24,7 +22,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const SendPanel = ({ channelId }) => {
+const SendPanel = ({ store, channelId }) => {
   const classes = useStyles();
   const [value, setValue] = useState('');
   
@@ -34,15 +32,16 @@ const SendPanel = ({ channelId }) => {
   };
 
   const handleClick = () => {
-    messages.push({
+    const message = {
       id: Date.now(),
       roomId: 'you',
       channelId,
       body: value,
       isOutgoing: true,
       ts: new Date,
-    });
-    console.log('messages', messages);
+    };
+
+    store.sendMessage(Date.now(), message);
   }
 
 

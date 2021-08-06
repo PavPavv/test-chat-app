@@ -4,3 +4,7 @@ export const getClockTime = time => {
 
   return `${hours}:${minutes}`;
 };
+
+export const isEmptyObj = obj => {
+  return (Object.keys(obj).length) ? false : true;
+};

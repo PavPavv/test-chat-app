@@ -66,19 +66,18 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const ChatItem = ({ chatName, roomName, msgs, time, message, setChannelName, isActiveChannel }) => {
+const ChatItem = ({ store, chatName, roomName, msgs, time, message, isActiveChannel }) => {
   const classes = useStyles();
 
   const handleChannelClick = () => {
-    setChannelName(chatName)
-    localStorage.setItem('channelId', chatName);
+    store.setSelectedChat(chatName);
   };
 
   return (
     <div className={isActiveChannel ? classes.activeChannel : classes.channel} onClick={handleChannelClick}>
       <Grid container direction="row">
         <Grid item style={{ width: '34px' }}>
-          <img src={`${userIc}`} className={classes.img} />
+          <img src={`${userIc}`} alt="user avatar" className={classes.img} />
         </Grid>
 
         <Grid item style={{ width: 'calc(100% - 34px)' }}>

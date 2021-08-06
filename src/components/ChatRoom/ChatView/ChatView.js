@@ -1,5 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core';
+import { observer } from 'mobx-react-lite';
+
 
 import ChatViewName from './ChatViewName/ChatViewName';
 import ChatBody from './ChatBody/ChatBody';
@@ -18,17 +20,17 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const ChatView = () => {
+const ChatView = ({ store }) => {
   const classes = useStyles();
-  const channelId = localStorage.getItem('channelId');
+  const channelId = store.picked.channelId;
   
   return (
     <main className={classes.root}>
       <ChatViewName channelId={channelId} />
-      <ChatBody channelId={channelId} />
-      <SendPanel channelId={channelId} />
+      <ChatBody store={store} />
+      <SendPanel channelId={channelId} store={store} />
     </main>
   )
 }
 
-export default ChatView;
+export default observer(ChatView);

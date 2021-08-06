@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { makeStyles, Typography } from '@material-ui/core';
+import { observer } from 'mobx-react-lite';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -14,13 +15,12 @@ const useStyles = makeStyles(theme => ({
 
 const ChatViewName = ({ channelId }) => {
   const classes = useStyles();
-  const [currentName, setCurrentName] = useState('');
 
   return (
     <div className={classes.root}>
-      <Typography variant="h2" noWrap>{currentName}</Typography>
+      <Typography variant="h2" noWrap>{channelId}</Typography>
     </div>
   )
 }
 
-export default ChatViewName;
+export default observer(ChatViewName);

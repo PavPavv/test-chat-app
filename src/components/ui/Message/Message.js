@@ -34,14 +34,14 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const Message = ({ isOutgoing, message, time }) => {
+const Message = ({ isOutgoing = false, message = '', time = '' }) => {
   const classes = useStyles();
 
   return (
     <div className={isOutgoing ? classes.wrapperOut : classes.wrapperIn}>
       <div className={isOutgoing ? classes.outgoing : classes.incoming}>
         <Typography variant="body1">{message}</Typography>
-        <Typography variant="caption">{getClockTime(time)}</Typography>
+        {/* <Typography variant="caption">{getClockTime(time)}</Typography> */}
       </div>
     </div>
   )
