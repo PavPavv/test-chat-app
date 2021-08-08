@@ -71,6 +71,7 @@ const ChatItem = ({ store, chatName, roomName, msgs, time, message, isActiveChan
 
   const handleChannelClick = () => {
     store.setSelectedChat(chatName);
+    store.setUnreadCountToZero(chatName);
   };
 
   return (
@@ -85,7 +86,7 @@ const ChatItem = ({ store, chatName, roomName, msgs, time, message, isActiveChan
             <Grid item className={classes.chatItemHeader}>
               <Typography variant="h4" className={classes.chatName}>{chatName}</Typography>
               <Box className={classes.box}>
-                <div className={classes.counter}>{msgs}</div>
+                {msgs > 0 ? <div className={classes.counter}>{msgs}</div> : null}
                 <div className={classes.time}>{time}</div>
               </Box>
             </Grid>

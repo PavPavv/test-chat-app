@@ -8,7 +8,14 @@ export const Message = types
     body: types.optional(types.string, ''),
     ts: types.optional(types.Date, new Date()),
     isOutgoing: types.optional(types.boolean, false),
-  });
+    isUnread: types.optional(types.boolean, true),
+  })
+
+  .actions(self => ({
+    setUnreadToFalse() {
+      self.isUnread = false;
+    }
+  }));
 
 export const PickedChat = types
   .model({

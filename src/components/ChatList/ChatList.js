@@ -39,6 +39,13 @@ const ChatList = ({ store }) => {
     return messages.filter(message => message.channelId === channelName).sort((a, b) => b.ts - a.ts)[0].ts;
   };
 
+  const unreadCount = channelName => {
+    return messages
+      .filter(message => message.channelId === channelName)
+      .filter(message => message.isUnread === true)
+      .length;
+  };
+
   return (
     <aside className={classes.root}>
       <ChatName name={channelId} />
@@ -52,14 +59,14 @@ const ChatList = ({ store }) => {
               key={index}
               chatName={room}
               roomName={latestRoomSpeaker(room)}
-              msgs="1" 
+              msgs={unreadCount(room)} 
               time={getClockTime(latestMsgTime(room))} 
               message={latestMessageFromChannel(room)}
               isActiveChannel={active}
               store={store}
             />
           );
-        })};
+        })}
       </div>
     </aside>
   )

@@ -15,7 +15,7 @@ const useStyles = makeStyles(theme => ({
     width: '100%',
   },
   outgoing: {
-    maxWidth: '200px',
+    maxWidth: '80%',
     marginBottom: '10px',
     border: 0,
     borderRadius: '8px 8px 4px 8px',
@@ -24,13 +24,27 @@ const useStyles = makeStyles(theme => ({
     background: theme.palette.secondary.main,
   },
   incoming: {
-    maxWidth: '200px',
+    maxWidth: '80%',
     marginBottom: '10px',
     border: 0,
     borderRadius: '8px 8px 4px 8px',
     padding: '8px 10px',
     color: theme.palette.common.heavyGray,
     background: theme.palette.common.gray,
+  },
+  text: {
+    hyphens: 'auto',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+  },
+  time: {
+    width: '100%', 
+    marginTop: '60px',
+    textAlign: 'right',
+  },
+  separator: {
+    width: '100%',
+    height: '5px',
   },
 }));
 
@@ -40,8 +54,9 @@ const Message = ({ isOutgoing = false, message = '', time = '' }) => {
   return (
     <div className={isOutgoing ? classes.wrapperOut : classes.wrapperIn}>
       <div className={isOutgoing ? classes.outgoing : classes.incoming}>
-        <Typography variant="body1">{message}</Typography>
-        {/* <Typography variant="caption">{getClockTime(time)}</Typography> */}
+        <Typography variant="body1"  className={classes.text}>{message}</Typography>
+        <div className={classes.separator}></div>
+        <Typography variant="caption" display="block" style={{ width: '100%', textAlign: 'right', }} >{getClockTime(time)}</Typography>
       </div>
     </div>
   )

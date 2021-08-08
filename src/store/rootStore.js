@@ -1,4 +1,5 @@
 import { types } from 'mobx-state-tree';
+import { values } from 'mobx';
 
 import { Message, PickedChat } from './messages/messagesStore';
 
@@ -7,25 +8,24 @@ const RootStore = types
     messages: types.map(Message),
     picked: types.optional(PickedChat, {}),
   })
+
   // .views(self => ({
-  //   get unfinishedCount() {
-  //     return values(self.todos).filter(todo => !todo.done).length;
-  //   },
-  //   get finishedCount() {
-  //     return values(self.todos).filter(todo => todo.done).length;
+  //   get unreadCount() {
+  //     return 9;
   //   }
   // }))
 
-  // .actions(self => ({
-  //   addTodo(userID, name) {
-  //       self.todos.set(userID, Todo.create({ name }))
-  //   }
-  // }));
   .actions(self => ({
     setSelectedChat(chatRoomId) {
         self.picked.channelId = chatRoomId;
     },
+    setUnreadCountToZero(chatRoomId) {
+      values(self.messages)
+        .filter(message => message.channelId === chatRoomId)
+        .forEach(filteredMessage => filteredMessage.setUnreadToFalse());
+    },
     sendMessage(id, message) {
+      if (message === undefined) message = null;
       self.messages.set(id, Message.create(message));
     }
   }));

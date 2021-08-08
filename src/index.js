@@ -7,14 +7,14 @@ import RootStore from './store/rootStore';
 
 import './index.css';
 
-const store = RootStore.create({
+export const store = RootStore.create({
   messages: {
     "1": {
       id: 1,
-      roomId: "Jack White",
-      channelId: "Jack White",
-      body: "hello!",
-      ts: new Date('August 5, 2021 21:24:00'),
+      roomId: "Messenger",
+      channelId: "Messenger",
+      body: "Welcome to this Messenger!",
+      ts: new Date(),
     },
     "2": {
       id: 2,
@@ -58,10 +58,26 @@ const store = RootStore.create({
   },
 });
 
+const message = {
+  id: Date.now(),
+  roomId: 'Dave Grohl',
+  channelId: 'Dave Grohl',
+  body: 'Some fast test',
+  isOutgoing: false,
+  ts: new Date(),
+};
 
-// store.sendMessage(1233, 'werwe', 'werwer', '2342 dsfsdfsdfs sdfs sdfsf');
+const message1 = {
+  id: Date.now(),
+  roomId: 'James',
+  channelId: 'James',
+  body: 'Hello! My name is James and I am from some tech company called BigDeal Inc. Have you got a couple of minutes to talk to about our interesting project?',
+  isOutgoing: false,
+  ts: new Date(),
+};
 
-console.log('getSnapshot', getSnapshot(store))
+store.sendMessage(Date.now(), message);
+store.sendMessage(Date.now(), message1);
 
 ReactDOM.render(
   <React.StrictMode>

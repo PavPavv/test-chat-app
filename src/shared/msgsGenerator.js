@@ -1,6 +1,7 @@
 const loremIpsum = require('lorem-ipsum').loremIpsum;
 //import loremIpsum from 'lorem-ipsum';
 
+
 let init = true;
 let id = 0;
 const roomIds = ['Perry the Platypus', 'Tyler Durden', 'Amy Pond', 'Le Petit Prince', 'Dr. Heinz Doofenshmirtz', 'Gregory'];
@@ -8,7 +9,7 @@ const channelIds = ['VK', 'OK', 'FB'];
 
 emit();
 
-function emit() {
+export function emit() {
     if (init) {
         init = false;
     } else {
@@ -37,6 +38,6 @@ function randomChoose(array) {
 
 function handle(message) {
     // FIXME Your code goes here
-    // dispatch(actions.messagesThunk(message))
     console.log(message);
+    return message;
 }

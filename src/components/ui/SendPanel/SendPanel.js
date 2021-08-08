@@ -32,19 +32,41 @@ const SendPanel = ({ store, channelId }) => {
   };
 
   const handleClick = () => {
+    if (!value) return;
+
     const message = {
       id: Date.now(),
       roomId: 'you',
       channelId,
       body: value,
       isOutgoing: true,
-      ts: new Date,
+      ts: new Date(),
+      isUnread: false,
     };
 
     store.sendMessage(Date.now(), message);
+    setValue('');
   }
 
+  const handleEnter = (e) => {
+    if (!value) return;
 
+    if (e.charCode === 13) {
+      const message = {
+        id: Date.now(),
+        roomId: 'you',
+        channelId,
+        body: value,
+        isOutgoing: true,
+        ts: new Date(),
+        isUnread: false,
+      };
+  
+      store.sendMessage(Date.now(), message);
+      setValue('');
+    }
+
+  }
 
   return (
     <div className={classes.root}>
@@ -54,6 +76,7 @@ const SendPanel = ({ store, channelId }) => {
         className={classes.input}
         value={value}
         onChange={handleChange}
+        onKeyPress={handleEnter}
       />
       <SendRounded color="primary" fontSize="medium" className={classes.sendBtn} onClick={handleClick} />
     </div>
